@@ -1,0 +1,9 @@
+{
+	"name": "databricks-alura",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "3f963e0d-c8ba-4a2f-88a4-5f0bd59fa60e",
+		"tenantId": "39d95a3b-2b14-4125-8155-c31fc74e84b3"
+	}
+}
