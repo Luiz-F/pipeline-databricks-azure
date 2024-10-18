@@ -1,48 +1,16 @@
 # Databricks notebook source
-dbutils.fs.ls("/mnt/dados/bronze")
-
-# COMMAND ----------
-
+# CARREGANDO OS ARQUIVOS DELTA EM DATAFRAME
 path = "dbfs:/mnt/dados/bronze/dataset_imoveis/"
 df = spark.read.format("delta").load(path)
 
 # COMMAND ----------
 
-display(df)
-
-# COMMAND ----------
-
-display(df.select("anuncio.*"))
-
-
-# COMMAND ----------
-
-display(
-    df.select("anuncio.*","anuncio.endereco.*")
-    
-    
-    )
-
-
-# COMMAND ----------
-
+# SELECIONANDO AS COLUNAS QUE SERÃO SALVAS
 dados_detalhados =  df.select("anuncio.*","anuncio.endereco.*")
-display(dados_detalhados)
-
-# COMMAND ----------
-
 df_silver = dados_detalhados.drop("caracteristicas","endereco")
-display(df_silver)
 
 # COMMAND ----------
 
+# CARREGANDO OS DADOS 
 path = "dbfs:/mnt/dados/silver/dataset_imoveis"
 df_silver.write.format("delta").mode("Overwrite").save(path)
-
-# COMMAND ----------
-
-dbutils.fs.ls("/mnt/dados/silver/dataset_imoveis")
-
-# COMMAND ----------
-
-
